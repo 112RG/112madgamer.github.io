@@ -177,6 +177,41 @@ code {
   background-color: #f2f2f2;
   border: solid 1px #ddd;
 }
+.header-element {
+	width: 24%; /* 100 / elementCount - 1 */
+	max-width: 100px;
+	height: 100%;
+	margin: 0;
+	padding-top: 10px;
+	float: right;
+	text-align: center;
+	display: block;
+}
+.header-element:hover {
+	border-left: 1px solid rgb(168, 172, 177);
+	border-right: 1px solid rgb(168, 172, 177);
+	background: rgb(240,240,240);
+	background: -moz-linear-gradient(top, rgb(240,240,240) 0%, rgb(225,225,225) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(240,240,240)), color-stop(100%,rgb(225,225,225)));
+	background: -webkit-linear-gradient(top, rgb(240,240,240) 0%,rgb(225,225,225) 100%);
+	background: -o-linear-gradient(top, rgb(240,240,240) 0%,rgb(225,225,225) 100%);
+	background: -ms-linear-gradient(top, rgb(240,240,240) 0%,rgb(225,225,225) 100%);
+	background: linear-gradient(to bottom, rgb(240,240,240) 0%,rgb(225,225,225) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#e1e1e1',GradientType=0 );
+	color: rgb(0, 132, 190);
+}
+.header-element:active {
+	border-left: 1px solid rgb(168, 172, 177);
+	border-right: 1px solid rgb(168, 172, 177);
+	background: rgb(230,230,230);
+	background: -moz-linear-gradient(top, rgb(230,230,230) 0%, rgb(210,210,210) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(230,230,230)), color-stop(100%,rgb(210,210,210)));
+	background: -webkit-linear-gradient(top, rgb(230,230,230) 0%,rgb(210,210,210) 100%);
+	background: -o-linear-gradient(top, rgb(230,230,230) 0%,rgb(210,210,210) 100%);
+	background: -ms-linear-gradient(top, rgb(230,230,230) 0%,rgb(210,210,210) 100%);
+	background: linear-gradient(to bottom, rgb(230,230,230) 0%,rgb(210,210,210) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e6e6', endColorstr='#d2d2d2',GradientType=0 );
+}
 
 pre {
   padding: 20px;
