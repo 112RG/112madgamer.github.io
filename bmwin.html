@@ -6,14 +6,7 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="css/core.css" />
 		<link rel="stylesheet" type="text/css" href="css/core.css" />
-		<link type="text/css" rel="stylesheet" href="css/SyntaxHighlighter.css"></link>
-		<script language="javascript" src="js/shCore.js"></script>
-		<script language="javascript" src="js/shBrushCSharp.js"></script>
-		<script language="javascript" src="js/shBrushXml.js"></script>
-		<script language="javascript">
-		dp.SyntaxHighlighter.ClipboardSwf = '/flash/clipboard.swf';
-		dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+
 		<title>Reverse</title>
 	</head>
 
@@ -40,26 +33,92 @@
 
 
 
-				<h2 id="introduction">Introduction</h2>
+				<h2 id="Opening">Opening</h2>
 				<p>This is my first attempt at reverse engeering malware I was pretty much jumping into the deep end with this so i was a little but lost to start of with</p>
+				<h2 id="Start of the program">Start</h2>
 				<p>After putting bmwin in IDA Pro 6.6 64-bit we se a list of funtions</p>
 				<img src="images/func.png" alt="" />
-				<p>start is the main function so we look in there we see</p>
+				<p>Start is the main function so we look in there we see</p>
 
-<pre class="c" style="font-family:monospace;"><ol><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #993333;">void</span> start<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#123;</span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">  <span style="color: #b1b100;">if</span> <span style="color: #009900;">&#40;</span> <span style="color: #339933;">!</span>CoInitializeEx<span style="color: #009900;">&#40;</span><span style="color: #0000dd;">0</span><span style="color: #339933;">,</span> 2u<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#41;</span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">  <span style="color: #009900;">&#123;</span></div></li><li style="font-weight: bold; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">    sub_4010C0<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">    CoUninitialize<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">  <span style="color: #009900;">&#125;</span></div></li><li style="font-weight: normal; vertical-align:top;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #009900;">&#125;</span></div></li></ol></pre>
+				<<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>void</span> start()
+{
+  <span style='color:#7f0055; font-weight:bold; '>if</span> ( !CoInitializeEx(0, 2u) )
+  {
+    sub_4010C0();
+    CoUninitialize();
+  }
+}
+</pre>
+				<p>We can see that sub_4010C0 is the main function if we take a look in that funtion by double clicking it we see</p>
 
+				<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>WPARAM</span> sub_4010C0()
+	{
+	  <span style='color:#7f0055; font-weight:bold; '>HINSTANCE</span> v0; <span style='color:#3f7f59; '>// edi@1</span>
+	  <span style='color:#7f0055; font-weight:bold; '>WPARAM</span> result; <span style='color:#3f7f59; '>// eax@2</span>
+	  <span style='color:#7f0055; font-weight:bold; '>HDC</span> v2; <span style='color:#3f7f59; '>// esi@3</span>
+	  <span style='color:#7f0055; font-weight:bold; '>int</span> nWidth; <span style='color:#3f7f59; '>// ST40_4@3</span>
+	  <span style='color:#7f0055; font-weight:bold; '>int</span> v4; <span style='color:#3f7f59; '>// ebx@3</span>
+	  <span style='color:#7f0055; font-weight:bold; '>HWND</span> v5; <span style='color:#3f7f59; '>// eax@3</span>
+	  <span style='color:#7f0055; font-weight:bold; '>BOOL</span> v6; <span style='color:#3f7f59; '>// eax@4</span>
+	  <span style='color:#7f0055; font-weight:bold; '>struct</span> tagMSG Msg; <span style='color:#3f7f59; '>// [sp+14h] [bp-44h]@4</span>
+	  <span style='color:#7f0055; font-weight:bold; '>WNDCLASSW</span> WndClass; <span style='color:#3f7f59; '>// [sp+30h] [bp-28h]@1</span>
 
+	  v0 = GetModuleHandleW(0);
+	  WndClass.cbClsExtra = 0;
+	  WndClass.cbWndExtra = 0;
+	  WndClass.hIcon = 0;
+	  WndClass.lpszMenuName = 0;
+	  WndClass.lpfnWndProc = sub_401020;
+	  WndClass.style = 3;
+	  WndClass.hInstance = v0;
+	  WndClass.lpszClassName = <span style='color:#2a00ff; '>L"</span><span style='color:#2a00ff; '>My Window Class!</span><span style='color:#2a00ff; '>"</span>;
+	  WndClass.hCursor = LoadCursorW(0, (<span style='color:#7f0055; font-weight:bold; '>LPCWSTR</span>)0x7F00);
+	  WndClass.hbrBackground = <span style='color:#7f0055; font-weight:bold; '>CreateSolidBrush</span>(0);
+	  <span style='color:#7f0055; font-weight:bold; '>if</span> ( RegisterClassW(&amp;WndClass)
+	    &amp;&amp; (v2 = <span style='color:#7f0055; font-weight:bold; '>GetDC</span>(0),
+	        nWidth = <span style='color:#7f0055; font-weight:bold; '>GetDeviceCaps</span>(v2, 8),
+	        v4 = <span style='color:#7f0055; font-weight:bold; '>GetDeviceCaps</span>(v2, 10),
+	        <span style='color:#7f0055; font-weight:bold; '>ReleaseDC</span>(0, v2),
+	        v5 = CreateWindowExW(0, <span style='color:#2a00ff; '>L"</span><span style='color:#2a00ff; '>My Window Class!</span><span style='color:#2a00ff; '>"</span>, <span style='color:#2a00ff; '>L"</span><span style='color:#2a00ff; '>System Error</span><span style='color:#2a00ff; '>"</span>, 0x80000000, 0, 0, nWidth, v4, 0, 0, v0, 0),
+	        (dword_403000 = (<span style='color:#7f0055; font-weight:bold; '>int</span>)v5) != 0) )
+	  {
+	    <span style='color:#7f0055; font-weight:bold; '>ShowWindow</span>(v5, 1);
+	    Msg.hwnd = 0;
+	    Msg.message = 0;
+	    Msg.wParam = 0;
+	    Msg.lParam = 0;
+	    Msg.time = 0;
+	    Msg.pt.x = 0;
+	    Msg.pt.y = 0;
+	    v6 = GetMessageW(&amp;Msg, 0, 0, 0);
+	    <span style='color:#7f0055; font-weight:bold; '>if</span> ( v6 )
+	    {
+	      <span style='color:#7f0055; font-weight:bold; '>while</span> ( v6 != -1 )
+	      {
+	        <span style='color:#7f0055; font-weight:bold; '>TranslateMessage</span>(&amp;Msg);
+	        DispatchMessageW(&amp;Msg);
+	        v6 = GetMessageW(&amp;Msg, 0, 0, 0);
+	        <span style='color:#7f0055; font-weight:bold; '>if</span> ( !v6 )
+	          <span style='color:#7f0055; font-weight:bold; '>goto</span> LABEL_7;
+	      }
+	      result = 3;
+	    }
+	    <span style='color:#7f0055; font-weight:bold; '>else</span>
+	    {
+	LABEL_7:
+	      result = Msg.wParam;
+	    }
+	  }
+	  <span style='color:#7f0055; font-weight:bold; '>else</span>
+	  {
+	    result = -1;
+	  }
+	  <span style='color:#7f0055; font-weight:bold; '>return</span> result;
+	}
+	</pre>
 
+					<p>This peice of code may look very daunting at first so lets pick it apart bit by bit</p>
 
-				<div class="page">
-					<div class="container">
-						<div class="footer">
-							<div class="center">
-
-							<p>Website code is not owned by me i take no ownership of the theme or layout of this site all rights belong to <a href="http://cturt.github.io/">Cturt</a></p>
-
-
-						</div>
 			</div>
 		</div>
 	</body>
