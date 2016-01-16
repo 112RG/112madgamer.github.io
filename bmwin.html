@@ -49,7 +49,7 @@
   }
 }
 </pre>
-				<p>We can see that sub_4010C0 is the main function if we take a look in that funtion by double clicking it we see</p>
+				<p>We can see that sub_4010C0 is the main class if we take a look in that funtion by double clicking it we see</p>
 
 				<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>WPARAM</span> sub_4010C0()
 	{
@@ -118,6 +118,57 @@
 	</pre>
 
 					<p>This peice of code may look very daunting at first so lets pick it apart bit by bit</p>
+					<p>On the first 11 lines it is just init code it calls a funtion "sub_401020" we will look into this further soon.</p>
+					<p>Below that it names the class below that it removes the cursor and loads a black background. Next it hits a if block this block basically asks if another class is there. A couple of lines down we see this</p>
+
+					<pre><code>v5 = CreateWindowExW(0, L"My Window Class!", L"System Error", 0x80000000, 0, 0, nWidth, v4, 0, 0, v0, 0),
+	        (dword_403000 = (int)v5) != 0) )</code></pre>
+
+					<p>This is were the "Malware" starts it just creates a black window and shows a "fake" system error.</p>
+
+					<p>But if we look deeper into other funtions I find "winupd.exe" is called many times which is weird since it is not a essential part of windows and just gets remade after a reboot</p>
+					<p>Also lookups for IsUserAdmin regkey is called many times after looking futher nothing actully malsious is actually done to the system but this funtion shows you what is done</p>
+
+					<p><pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>char</span> sub_4016C0()
+{
+  <span style='color:#7f0055; font-weight:bold; '>HRESULT</span> v0; <span style='color:#3f7f59; '>// eax@1</span>
+  <span style='color:#7f0055; font-weight:bold; '>DWORD</span> v1; <span style='color:#3f7f59; '>// eax@2</span>
+  <span style='color:#7f0055; font-weight:bold; '>CHAR</span> Filename; <span style='color:#3f7f59; '>// [sp+0h] [bp-208h]@1</span>
+  <span style='color:#7f0055; font-weight:bold; '>CHAR</span> pszPath; <span style='color:#3f7f59; '>// [sp+104h] [bp-104h]@1</span>
+
+  GetModuleFileNameA(0, &amp;Filename, 0x103u);
+  v0 = SHGetFolderPathA(0, 32803, 0, 0, &amp;pszPath);
+  <span style='color:#7f0055; font-weight:bold; '>if</span> ( v0 >= 0 )
+  {
+    <span style='color:#7f0055; font-weight:bold; '>if</span> ( (lstrcatA(&amp;pszPath, <span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>\\</span><span style='color:#2a00ff; '>Temp</span><span style='color:#2a00ff; '>\\</span><span style='color:#2a00ff; '>"</span>), v1 = GetFileAttributesA(&amp;pszPath), v1 != -1) &amp;&amp; v1 &amp; 0x10
+      || (v0 = CreateDirectoryA(&amp;pszPath, 0)) != 0 )
+    {
+      lstrcatA(&amp;pszPath, <span style='color:#2a00ff; '>"</span><span style='color:#2a00ff; '>winupd.exe</span><span style='color:#2a00ff; '>"</span>);
+      <span style='color:#7f0055; font-weight:bold; '>LOBYTE</span>(v0) = lstrcmpA(&amp;pszPath, &amp;Filename) == 0;
+      <span style='color:#7f0055; font-weight:bold; '>if</span> ( !(_BYTE)v0 )
+        <span style='color:#7f0055; font-weight:bold; '>LOBYTE</span>(v0) = MoveFileExA(&amp;Filename, &amp;pszPath, 1u);
+    }
+  }
+  <span style='color:#7f0055; font-weight:bold; '>return</span> v0;
+}
+</pre></p>
+<p>This funtion basically checks if other funtions have done there job then it get's the path of <a href="http://www.file.net/process/winupd.exe.html"> winupd.exe</a> and then moves it to the \\tmp\\ drive.</p>
+
+
+<h1>Debugging</h1>
+
+<p>So after looking through all the funtions i basically know what the program is going todo. After attaching the debugger and running it all it did was make the screen go black and didn't even show the error we looked at, all it did was remove the winupd.exe which is not bad from a "Malware" point of view.</p>
+
+<h1>Details of infection</h1>
+
+<p>When you execute bwin.exe it looks in the registery and looks if the userisadmin if not then it quits but if they are then it create a window makes it black and then makes a fake error while behind the window a shell opens and moves winupd.exe to the \\tmp\\ drive not much for a malware.</p>
+
+<h1>Summary of analysis</h1>
+
+<p>There are no real obfuscations nor anti-debugger mechanisms implemented.</p>
+<p>It also is outdated and does not work as intended and doesn't do majour damage to your computer or even damage so the creator of this didnt really want it to be bad nor do anything bad.</p>
+
+
 
 			</div>
 		</div>
