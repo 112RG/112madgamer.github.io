@@ -39,7 +39,7 @@
 				<h2 id="Start">Start</h2>
 				<p>After putting bmwin in IDA Pro 6.6 64-bit we se a list of funtions</p>
 				<img src="images/func.png" alt="" />
-				<p>Start is the main function so we look in there we see</p>
+				<p>Here is the main function so we look in there we see a basic init class which asks CoInitializeEx if it has done it job by checking values then it runs sub_4010C0(); which is the main funtion</p>
 
 				<<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>void</span> start()
 {
@@ -50,7 +50,7 @@
   }
 }
 </pre>
-				<p>We can see that sub_4010C0 is the main class if we take a look in that funtion by double clicking it we see</p>
+				<p>We can see that sub_4010C0 is the main class if we take a look in that funtion by clicking it then pressing F5 which generates <a href="https://en.wikipedia.org/wiki/Pseudocode">pseudo code</a></p>
 
 				<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>WPARAM</span> sub_4010C0()
 	{
