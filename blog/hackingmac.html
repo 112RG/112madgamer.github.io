@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/core.css" />
+		<title>Hacking the MAC</title>
+		<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75071368-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	</head>
+
+	<body>
+	<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5SZW5L"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5SZW5L');</script>
+<!-- End Google Tag Manager -->
+		<div class="page">
+			<div class="container">
+				<div class="header">
+					<a href="contact.html" class="header-element">
+						Contact
+					</a>
+
+					<a href="skills.html" class="header-element">
+						Skills
+					</a>
+
+					<a href="articles.html" class="header-element">
+						Articles
+					</a>
+
+					<a href="index.html" class="header-element">
+						Home
+					</a>
+				</div>
+				
+				<h1>Hacking The Mac</h1>
+				<p>DISCLAIMER - This is for educational purposes only I dont not take responsibility for any criminal actions caused by this.</p>
+				
+				<h2>Start</h2>
+
+				<p>I have used a mac every since year 8 in school and surprisingly it is very easy to hack</p>
+				<p>even if you have a password on your mac it is very easy to change the permissions on your mac so anybody who is a admin can read it.</p>
+				<p>Well everybody who uses your mac is not a admin except you right?. But it is very easy to become one</p>
+
+				<h1>Becoming a admin</h1>
+
+				<p>Becoming a admin is very easy.</p>
+				<p>Step 1 -- First you need to see if you can boot into <a href="http://www.westwind.com/reference/OS-X/commandline/single-user.html">Single Usermode</a></p>
+				<p>This is very easy todo simply shutdown the mac and when you press the power button hold ⌘-S, after a few moments a command line will start to boot and then release the keys.</p>
+				<p>After the command line has booted there is two commands you need to run the first command is. <pre><code>/sbin/mount -uw / </code></pre></p>
+				<p>This will mount the Macintosh HD so you can run the next command</p>
+				<p>the second command you need to run is this. <pre><code>rm /var/db/.AppleSetupDone</code></pre>
+				
+				<p>When you first buy a mac the apple setup assistant runs this lets you pickup your language and do all your other crap. But it is also where you make your account. Deleting this file lets you run it again and therefore creating a new admin account.</pre>
+				<p></pre>
+				
+				<p>There is one problem with this though some schools or people put firmware passwords on the mac so when you try to boot into single user mode it asks for a password there is a way around this</p>
+
+
+				<h1>Deployment studio</h1>
+
+				<p>Deployment studio is a tool used by schools to deploy laptops it is also lets you run scripts on the laptop.</p>
+				<p> I will not go through all the steps todo this since it is very easy todo I have attached a couple of scripts that you can add to your deployment studio workflow to achieve admin.</p>
+				
+				<p>Download Scripts <a href="https://mega.nz/#!2FAj0a5K!eocDZCL9UiosBGoVjrmkE-WvsxPcu03GBp-1OOf6f0g">HERE</a></p>
+
+				
+				<h2>hidden-admin.sh</h2>
+				
+				<p>Here is a example usage of this script</p>
+				<p><pre><code>
+# Usage: hidden-admin.sh $1 $2 $3 [$4 $5 $6 $7]
+# $1 -> realname
+# $2 -> shortname
+# $3 -> password
+# $4 -> admin (YES/NO)
+# $5 -> hidden (YES/NO)
+# $6 -> localization (English, French, etc...)
+# $7 -> uidNumber
+</code></pre>
+
+				<p>Here is what i use hidden-admin.sh tom tom q YES YES</p>
+				
+				<h2>turn_admin_hide.sh</h2>
+				
+				<p>This is a very good script it will turn the user admin and also hide them from the login window and also the system preferences window creating the ultimate hidden admin.</p>
+				<p>Here is a example usage of this script.<pre><code>turn_admin_hide.sh (username)</code></pre>
+				<p>(username) = the user you want admin.</p>
+				
+				<p>The other scripts you can figure out how to use they are very easy.</p>
+
+				<h1>System Preferences hack</h1>
+				
+				<p>If your school has blocked certain system preferences panes here is two easy way's to get access to them.</p>
+				<p>Way 1 -- Open system preferences at the top bar click view, then customize un-check the boxes you want to access. Then click done, quit system preferences and then re-open. Search the name of the pref pane you want to use in the search bar and click the name it will open tada.</p>
+				<p>Way 2 -- Right click system preferences then click show package contents. Now --> Contents --> Resources, and delete NSPrefPaneGroups.xml. open system preferences all the panes will be disappeared just search one you want in the search bar and tada it works.</p>
+				
+
+
+
+
+
+
+
+					<div class="page">
+						<div class="container">
+					
+
+
+
+			</div>
+		</div>
+	</body>
+</html>
